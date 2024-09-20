@@ -11,8 +11,7 @@
     "rootDir": "./src",
     "paths": {
       "@/*": ["src/*"]
-    },
-    "types": ["node"]
+    }
   },
   "include": ["src", "../*.ts", "signal-js.d.ts"],
   "exclude": ["node_modules"]
