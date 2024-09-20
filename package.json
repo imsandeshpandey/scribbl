@@ -1,0 +1,32 @@
+{
+  "name": "scribbl",
+  "private": true,
+  "version": "1.0.0",
+  "description": "A multiplayer drawing and guessing game built with React, Supabase, and Socket.io",
+  "scripts": {
+    "start": "",
+    "dev": "concurrently \"pnpm start\" \"cd packages/server && pnpm dev\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "reinstall": "rm -rf node_modules pnpm-lock.yaml && pnpm install",
+    "client": "cd client && pnpm"
+  },
+  "keywords": [
+    "game",
+    "scribbl",
+    "scribble",
+    "drawing",
+    "canvas",
+    "multiplayer",
+    "realtime"
+  ],
+  "author": "Sandesh Pandey",
+  "license": "MIT",
+  "dependencies": {
+    "socket.io": "^4.7.5",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.5",
+    "concurrently": "^9.0.1"
+  }
+}
