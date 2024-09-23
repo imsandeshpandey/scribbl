@@ -1,17 +1,11 @@
-import animate from 'tailwindcss-animate';
-import defaultTheme from 'tailwindcss/defaultTheme';
-import textStroke from '@designbycode/tailwindcss-text-stroke';
-import plugin from 'tailwindcss';
+import animate from 'tailwindcss-animate'
+import defaultTheme from 'tailwindcss/defaultTheme'
+import textStroke from '@designbycode/tailwindcss-text-stroke'
 
 /** @type {import('tailwindcss').Config} */
 const config = {
   darkMode: ['class'],
-  content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}'
-  ],
+  content: ['./pages/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './app/**/*.{ts,tsx}', './src/**/*.{ts,tsx}'],
   prefix: '',
   theme: {
     fontFamily: {
@@ -158,11 +152,11 @@ const config = {
         x: (value) => {
           return {
             [`@apply ${value.replaceAll(',', ' ')}`]: {}
-          };
+          }
         }
-      });
+      })
     })
   ]
-};
+}
 
-export default config;
+export default config

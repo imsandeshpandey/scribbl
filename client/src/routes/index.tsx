@@ -1,14 +1,14 @@
-import * as React from 'react'
+import { AvatarCreator } from '@/components/avatar-creator'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/')({
-  component: HomeComponent,
+  component: HomeComponent
 })
 
 function HomeComponent() {
   return (
-    <div className="p-2">
-      <h3>Welcome Home!</h3>
+    <div className='grid place-items-center p-2'>
+      <AvatarCreator />
     </div>
   )
 }

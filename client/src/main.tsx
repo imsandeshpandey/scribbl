@@ -1,15 +1,15 @@
+import './index.css'
+
 import { createRoot } from 'react-dom/client'
-import { RouterProvider, createRouter } from '@tanstack/react-router'
+
+import { createRouter, RouterProvider } from '@tanstack/react-router'
+
 import { routeTree } from './routeTree.gen'
-import { Session } from '@supabase/supabase-js'
 
 // Set up a Router instance
 const router = createRouter({
   routeTree,
-  defaultPreload: 'intent',
-  context: {
-    session: null as Session | null
-  }
+  defaultPreload: 'intent'
 })
 
 const rootEl = document.getElementById('root')!
