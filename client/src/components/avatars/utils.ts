@@ -7,41 +7,7 @@ GitHub: https://github.com/dapi-labs/react-nice-avatar
 NPM: https://www.npmjs.com/package/react-nice-avatar
  */
 
-import { AvatarConfig } from './'
-import { EarStyle } from './ear'
-import { EyebrowStyle } from './eyebrow'
-import { EyesStyle } from './eyes'
-import { GlassesStyle } from './glasses'
-import { HeadStyle } from './head'
-import { MouthStyle } from './mouth'
-import { NoseStyle } from './nose'
-import { ShirtStyle } from './shirt'
-
-/**
- * Pick random one from the list
- */
-
-export const pickRandomFromList = <T>(data: T[]): T => {
-  const randomIdx = Math.floor(Math.random() * data.length)
-  return data[randomIdx]
-}
-
-export const AVATAR_OPTIONS = {
-  faceColor: ['#F9C9B6', '#AC6651'],
-  earSize: Object.values(EarStyle),
-  headColor: ['#000', '#fff', '#77311D', '#FC909F', '#D2EFF3', '#506AF4', '#F48150'],
-  headStyle: Object.values(HeadStyle),
-  hatColor: ['#000', '#fff', '#77311D', '#FC909F', '#D2EFF3', '#506AF4', '#F48150'],
-  eyeBrowStyle: Object.values(EyebrowStyle),
-  eyeStyle: Object.values(EyesStyle),
-  glassesStyle: Object.values(GlassesStyle),
-  noseStyle: Object.values(NoseStyle),
-  mouthStyle: Object.values(MouthStyle),
-  shirtStyle: Object.values(ShirtStyle),
-
-  shirtColor: ['#9287FF', '#6BD9E9', '#FC909F', '#F4D150', '#77311D']
-}
-type AvatarOptions = typeof AVATAR_OPTIONS
+import { AVATAR_OPTIONS, AvatarConfig, AvatarOptions } from './config';
 
 const stringToHashCode = (str: string): number => {
   if (str.length === 0) return 0
@@ -60,12 +26,20 @@ const pickByHashCode = <K extends keyof AvatarOptions>(code: number, type: K): A
   return AVATAR_OPTIONS[type][index]
 }
 
+export const pickFromOptions = <T>(data: T[]) => {
+  const randomIdx = Math.floor(Math.random() * data.length)
+  return data[randomIdx]
+}
+
 export const genConfig = (userConfig: string | Partial<AvatarConfig> = {}): Required<AvatarConfig> => {
   const isSeedConfig = typeof userConfig === 'string'
   const hashCode = (isSeedConfig && stringToHashCode(userConfig)) || 0
 
   const pick = <K extends keyof AvatarOptions>(key: K): AvatarOptions[K][number] => {
-    return isSeedConfig ? pickByHashCode(hashCode, key) : userConfig[key] || pickRandomFromList(AVATAR_OPTIONS[key])
+    if (isSeedConfig) return pickByHashCode(hashCode, key)
+    const userVal = userConfig[key]
+    if (userVal) return userVal
+    return pickFromOptions(AVATAR_OPTIONS[key])
   }
   const res = {
     faceColor: pick('faceColor'),
@@ -87,11 +61,48 @@ export const genConfig = (userConfig: string | Partial<AvatarConfig> = {}): Requ
   return res as Required<AvatarConfig>
 }
 
+const CONFIG_ORDER: (keyof AvatarConfig)[] = [
+  'earSize',
+  'headStyle',
+  'eyeBrowStyle',
+  'eyeStyle',
+  'glassesStyle',
+  'noseStyle',
+  'mouthStyle',
+  'shirtStyle',
+  'shirtColor',
+  'faceColor',
+  'headColor'
+]
+
 export function configToHash(config: AvatarConfig) {
-  const hashArr = []
+  const valArr = []
   for (const key in config) {
-    const idx = AVATAR_OPTIONS[key as keyof AvatarOptions].findIndex((val) => val === config[key as keyof AvatarConfig])
-    hashArr.push(idx)
+    type Key = keyof AvatarConfig
+    const keyIdx = CONFIG_ORDER.indexOf(key as Key)
+    const idx = AVATAR_OPTIONS[key as Key].findIndex((val) => val === config[key as Key])
+    valArr[keyIdx] = idx
   }
-  return hashArr.join('#')
+  const hash = valArr.map((v, i) => String.fromCharCode((Number(v) + 30) * (i + 1))).join('')
+  return hash
+}
+
+export function hashToConfig(hash: string) {
+  const hashArr = hash
+    .split('') // Split the hash into individual characters
+    .map((char, i) => {
+      const charCode = char.charCodeAt(0) // Get the character code
+      const originalVal = charCode / (i + 1) - 30 // Reverse the operations
+      return originalVal
+    })
+  const config = {} as AvatarConfig
+
+  for (const i in hashArr) {
+    const key = CONFIG_ORDER[i]
+    const val = hashArr[i]
+    // @ts-expect-error FIXME: Argument of type 'string' is not assignable to parameter of type 'never'.
+    config[key] = AVATAR_OPTIONS[key][Number(val)]
+  }
+
+  return config
 }

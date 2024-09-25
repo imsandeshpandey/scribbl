@@ -1,9 +1,6 @@
-import chroma from 'chroma-js'
-
 export default function hairMohawk(props: { color: string }) {
   const { color } = props
   const mainColor = color ?? '#171921'
-  const subColor = color ? chroma(color).brighten(2).hex() : '#717376'
   return (
     <svg
       style={{
@@ -20,17 +17,17 @@ export default function hairMohawk(props: { color: string }) {
       xmlns='http://www.w3.org/2000/svg'
     >
       <path
-        opacity='0.35'
+        opacity='0.25'
         d='M187.986 80.1756C179.986 73.7756 166.153 73.1758 160.486 73.6758L152.486 47.1758C166.086 50.3758 184.486 71.1758 187.986 80.1756Z'
-        fill={subColor}
-        stroke={subColor}
+        fill={mainColor}
+        stroke={mainColor}
         strokeWidth={4}
       />
       <path
-        opacity='0.35'
+        opacity='0.25'
         d='M67.4855 133.675C60.2855 106.475 89.4855 91.8415 102.985 87.6749C95.9855 71.3415 79.9854 56.6749 60.4854 74.6756C42.4854 105.175 49.4855 128.676 54.9855 146.675L67.4855 133.675Z'
-        fill={subColor}
-        stroke={subColor}
+        fill={mainColor}
+        stroke={mainColor}
         strokeWidth={0}
       />
       <path

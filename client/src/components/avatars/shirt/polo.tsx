@@ -1,8 +1,8 @@
-import chroma from 'chroma-js'
+import { brightenColor } from '@/utils/color.utils'
 
 export default function ShirtPolo(props: { color: string }) {
   const { color } = props
-  const lightColor = chroma(color).brighten(1).hex()
+  const lightColor = brightenColor(color, 0.2)
   return (
     <svg
       style={{

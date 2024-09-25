@@ -15,6 +15,17 @@ export enum HeadStyle {
   BEANIE = 'beanie',
   TURBAN = 'turban'
 }
+
+export enum HeadColor {
+  BLACK = '#000',
+  WHITE = '#fff',
+  RED = '#77311D',
+  ORANGE = '#FC909F',
+  BLUE = '#D2EFF3',
+  GREEN = '#506AF4',
+  PURPLE = '#F48150'
+}
+
 export const HAIR_STYLE_TO_LABEL = {
   [HeadStyle.MOHAWK]: 'Mohawk',
   [HeadStyle.NORMAL]: 'Normal',
@@ -37,7 +48,7 @@ type HeadProps = {
   color: string
 }
 
-export default function hair(props: HeadProps) {
+export default function Hair(props: HeadProps) {
   const { variant, color } = props
   const Comp = STYLE_TO_COMPONENT[variant]
   return <Comp color={color} />

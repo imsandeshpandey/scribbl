@@ -1,3 +1,8 @@
+export enum FaceColor {
+  LIGHT = '#F9C9B6',
+  DARK = '#AC6651'
+}
+
 export default function Face(props: { color: string }) {
   const { color } = props
   const maskId = `mask-id`

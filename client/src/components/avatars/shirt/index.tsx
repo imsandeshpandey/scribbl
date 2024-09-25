@@ -7,6 +7,14 @@ export enum ShirtStyle {
   POLO = 'polo',
   SHORT = 'short'
 }
+export enum ShirtColor {
+  RED = '#9287FF',
+  BLUE = '#6BD9E9',
+  ORANGE = '#FC909F',
+  GREEN = '#F4D150',
+  PURPLE = '#77311D'
+}
+
 export const SHIRT_STYLE_TO_LABEL = {
   [ShirtStyle.HOODY]: 'Hoody',
   [ShirtStyle.POLO]: 'Polo',
@@ -23,7 +31,7 @@ type ShirtProps = {
   color: string
 }
 
-export default function shirt(props: ShirtProps) {
+export default function Shirt(props: ShirtProps) {
   const Comp = STYLE_TO_COMPONENT[props.variant]
   return <Comp color={props.color} />
 }
