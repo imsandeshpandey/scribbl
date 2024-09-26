@@ -6,7 +6,9 @@ const schema = z.object({
   WEBSOCKET_URL: z.string(),
 
   SUPABASE_URL: z.string(),
-  SUPABASE_ANON_KEY: z.string()
+  SUPABASE_ANON_KEY: z.string(),
+
+  JWT_SECRET: z.string()
 })
 
 export const env = schema.parse(parseViteEnv(import.meta.env))
